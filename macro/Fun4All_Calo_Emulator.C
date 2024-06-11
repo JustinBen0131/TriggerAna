@@ -29,7 +29,7 @@ R__LOAD_LIBRARY(libfun4all.so)
 R__LOAD_LIBRARY(libemulatortreemaker.so)
 #endif
 
-void Fun4All_Calo_Emulator(const string &fname1, int nEvents = 0)
+void Fun4All_Calo_Emulator(const string &fname1, int nEvents = 0, const string &outputFilename = "test.root")
 { 
 
   // example input file
@@ -138,7 +138,7 @@ void Fun4All_Calo_Emulator(const string &fname1, int nEvents = 0)
   in->AddFile(fname1.c_str());
   se->registerInputManager(in);
 
-  CaloEmulatorTreeMaker *tt1 = new CaloEmulatorTreeMaker("CaloEmulatorTreemaker","test.root");
+  CaloEmulatorTreeMaker *tt1 = new CaloEmulatorTreeMaker("CaloEmulatorTreemaker",outputFilename.c_str());
   tt1->UseCaloTowerBuilder(true);
   tt1->Verbosity(verbosity);
   se->registerSubsystem(tt1);
