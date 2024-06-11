@@ -122,7 +122,7 @@ void Fun4All_Calo_Emulator(const string &fname1, int nEvents = 0, const string &
   te->useHCALOUT(false);
   // If specific thresholds arent set (below, this one is used)
 
-  te->setEmcalLUTFile("/sphenix/user/dlis/Projects/macros/CDBTest/emcal_ll1_lut.root");
+  te->setEmcalLUTFile("/sphenix/u/patsfan753/scratch/analysis/calotriggeremulator/emcal_ll1_lut.root");
   //  te->setHcalinLUTFile("/sphenix/user/dlis/Projects/macros/CDBTest/hcalin_ll1_lut.root");
   // te->setHcaloutLUTFile("/sphenix/user/dlis/Projects/macros/CDBTest/hcalout_ll1_lut.root");
 
@@ -146,20 +146,20 @@ void Fun4All_Calo_Emulator(const string &fname1, int nEvents = 0, const string &
   TriggerValid *tt2 = new TriggerValid("TriggerValid");
   se->registerSubsystem(tt2);
 
-  char outfile_hist[100];
+//  char outfile_hist[100];
   // sprintf(outfile_hist, "/sphenix/tg/tg01/commissioning/CaloCalibWG/dlis/HIST_TRIGGER_QA-%08d-%04d.root", runnumber, 0);
-  sprintf(outfile_hist, "HIST_TRIGGER_QA-%08d-%04d.root", runnumber, 0);
-  string fulloutfile_hist = outfile_hist;
+//  sprintf(outfile_hist, "HIST_TRIGGER_QA-%08d-%04d.root", runnumber, 0);
+ // string fulloutfile_hist = outfile_hist;
 
   // Fun4AllOutputManager *out = new Fun4AllDstOutputManager("TriggerOut", "/sphenix/tg/tg01/commissioning/CaloCalibWG/dlis/DST_EMULATOR.root");
-  //Fun4AllOutputManager *out = new Fun4AllDstOutputManager("TriggerOut", "DST_EMULATOR.root");
- // out->UseFileRule();
-//  se->registerOutputManager(out);
+    Fun4AllOutputManager *out = new Fun4AllDstOutputManager("TriggerOut", "output/DST_EMULATOR.root");
+    out->UseFileRule();
+    se->registerOutputManager(out);
 
 // Fun4All
 //  se->skip();
-//  se->run(nEvents);
- // se->End();
+    se->run(nEvents);
+    se->End();
   //TString qaname = fulloutfile_hist;
   //std::string qaOutputFileName(qaname.Data());
   //QAHistManagerDef::saveQARootFile(qaOutputFileName);
