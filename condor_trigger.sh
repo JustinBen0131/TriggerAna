@@ -7,19 +7,30 @@ export MYINSTALL="$HOME/install"
 source /opt/sphenix/core/bin/sphenix_setup.sh -n
 source /opt/sphenix/core/bin/setup_local.sh $MYINSTALL
 
-events=$1
+# Capture command line arguments
+runNumber=$1
 filename=$2
-outname="CaloOutput_${filename%.*}.root"  # Strip the extension from the filename and append
+clusterID=$3
 
-root -b -l -q "macros/Fun4All_Calo_Emulator.C($events, \"$filename\", \"$outname\")"
+# Create a directory based on the run number
+outputDir="/sphenix/user/patsfan753/output/${runNumber}"
+mkdir -p ${outputDir}  # Ensure the directory exists
+
+# Construct the output filename within the new directory
+outname="${outputDir}/CaloOutput_${filename%.*}.root"  # Strip the extension from the filename and append
+
+# Define the log file path
+logFile="${outputDir}/CaloOutput_${filename%.*}_log.txt"
+
+# Run the ROOT macro with dynamically generated output path and log the output
+root -b -l -q "macros/Fun4All_Calo_Emulator.C($events, \"$filename\", \"$outname\")" &> $logFile
 
 
 universe                = vanilla
 executable              = /sphenix/user/patsfan753/condor_calotreegen.sh
 arguments               = 44686 $(filename) $(Cluster)
-log                     = /sphenix/user/patsfan753/logs/job.$(Cluster).$(Process).log
-output                  = /sphenix/user/patsfan753/out/job.$(Cluster).$(Process).out
-error                   = /sphenix/user/patsfan753/err/job.$(Cluster).$(Process).err
+log                     = log/job.$(Cluster).$(Process).log
+output                  = stdout/job.$(Cluster).$(Process).out
+error                   = error/job.$(Cluster).$(Process).err
 request_memory          = 7GB
 queue filename from /sphenix/u/patsfan753/scratch/analysis/calotriggeremulator/dst_calo_run2pp-00044686.list
-
