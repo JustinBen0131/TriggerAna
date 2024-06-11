@@ -152,17 +152,17 @@ void Fun4All_Calo_Emulator(const string &fname1, int nEvents = 0, const string &
   string fulloutfile_hist = outfile_hist;
 
   // Fun4AllOutputManager *out = new Fun4AllDstOutputManager("TriggerOut", "/sphenix/tg/tg01/commissioning/CaloCalibWG/dlis/DST_EMULATOR.root");
-  Fun4AllOutputManager *out = new Fun4AllDstOutputManager("TriggerOut", "DST_EMULATOR.root");
-  out->UseFileRule();
-  se->registerOutputManager(out);
+  //Fun4AllOutputManager *out = new Fun4AllDstOutputManager("TriggerOut", "DST_EMULATOR.root");
+ // out->UseFileRule();
+//  se->registerOutputManager(out);
 
 // Fun4All
 //  se->skip();
-  se->run(nEvents);
-  se->End();
-  TString qaname = fulloutfile_hist;
-  std::string qaOutputFileName(qaname.Data());
-  QAHistManagerDef::saveQARootFile(qaOutputFileName);
+//  se->run(nEvents);
+ // se->End();
+  //TString qaname = fulloutfile_hist;
+  //std::string qaOutputFileName(qaname.Data());
+  //QAHistManagerDef::saveQARootFile(qaOutputFileName);
 
   cout << "JOB COMPLETE :)" <<endl;
 }
